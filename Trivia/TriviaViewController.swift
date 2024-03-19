@@ -68,18 +68,18 @@ class TriviaViewController: UIViewController {
     return answer == questions[currQuestionIndex].correctAnswer
   }
   
-  private func showFinalScore() {
-    let alertController = UIAlertController(title: "Game over!",
-                                            message: "Final score: \(numCorrectQuestions)/\(questions.count)",
-                                            preferredStyle: .alert)
-    let resetAction = UIAlertAction(title: "Restart", style: .default) { [unowned self] _ in
-      currQuestionIndex = 0
-      numCorrectQuestions = 0
-      updateQuestion(withQuestionIndex: currQuestionIndex)
+    private func showFinalScore() {
+        let alertController = UIAlertController(title: "Game over!",
+                                                message: "Final score: \(numCorrectQuestions)/\(questions.count)",
+                                                preferredStyle: .alert)
+        let resetAction = UIAlertAction(title: "Restart", style: .default) { [unowned self] _ in
+            currQuestionIndex = 0
+            numCorrectQuestions = 0
+            updateQuestion(withQuestionIndex: currQuestionIndex)
+        }
+        alertController.addAction(resetAction)
+        present(alertController, animated: true, completion: nil)
     }
-    alertController.addAction(resetAction)
-    present(alertController, animated: true, completion: nil)
-  }
   
   private func addGradient() {
     let gradientLayer = CAGradientLayer()

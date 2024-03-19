@@ -17,6 +17,7 @@
 		9926AB4529DFAE1500860532 /* TriviaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926AB4429DFAE1500860532 /* TriviaUITests.swift */; };
 		9926AB4729DFAE1500860532 /* TriviaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926AB4629DFAE1500860532 /* TriviaUITestsLaunchTests.swift */; };
 		9926AB5429DFB8FA00860532 /* TriviaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9926AB5329DFB8FA00860532 /* TriviaQuestion.swift */; };
+		C5D1A02C2BA96C5200140A55 /* TriviaQuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D1A02B2BA96C5200140A55 /* TriviaQuestionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		9926AB4429DFAE1500860532 /* TriviaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaUITests.swift; sourceTree = "<group>"; };
 		9926AB4629DFAE1500860532 /* TriviaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9926AB5329DFB8FA00860532 /* TriviaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestion.swift; sourceTree = "<group>"; };
+		C5D1A02B2BA96C5200140A55 /* TriviaQuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				9926AB2329DFAE1400860532 /* AppDelegate.swift */,
+				C5D1A02B2BA96C5200140A55 /* TriviaQuestionService.swift */,
 				9926AB2529DFAE1400860532 /* SceneDelegate.swift */,
 				9926AB2729DFAE1400860532 /* TriviaViewController.swift */,
 				9926AB5329DFB8FA00860532 /* TriviaQuestion.swift */,
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5D1A02C2BA96C5200140A55 /* TriviaQuestionService.swift in Sources */,
 				9926AB2829DFAE1400860532 /* TriviaViewController.swift in Sources */,
 				9926AB2429DFAE1400860532 /* AppDelegate.swift in Sources */,
 				9926AB5429DFB8FA00860532 /* TriviaQuestion.swift in Sources */,
