@@ -21,36 +21,62 @@ class TriviaViewController: UIViewController {
   private var questions = [TriviaQuestion]()
   private var currQuestionIndex = 0
   private var numCorrectQuestions = 0
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addGradient()
+        questionContainerView.layer.cornerRadius = 8.0
+        fetchTriviaQuestions()
+    }
+
+    private func fetchTriviaQuestions() {
+        guard let url = URL(string: "https://opentdb.com/api.php?amount=5&type=multiple") else {
+            print("Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            guard let data = data, error == nil else {
+                print("Error fetching trivia questions:", error?.localizedDescription ?? "Unknown error")
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let triviaResponse = try decoder.decode(TriviaAPIResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self?.questions = triviaResponse.results
+                    self?.updateQuestion(withQuestionIndex: 0)
+                }
+            } catch {
+                print("Error decoding JSON:", error.localizedDescription)
+            }
+        }.resume()
+    }
+
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    addGradient()
-    questionContainerView.layer.cornerRadius = 8.0
-    // TODO: FETCH TRIVIA QUESTIONS HERE
-  }
-  
-  private func updateQuestion(withQuestionIndex questionIndex: Int) {
-    currentQuestionNumberLabel.text = "Question: \(questionIndex + 1)/\(questions.count)"
-    let question = questions[questionIndex]
-    questionLabel.text = question.question
-    categoryLabel.text = question.category
-    let answers = ([question.correctAnswer] + question.incorrectAnswers).shuffled()
-    if answers.count > 0 {
-      answerButton0.setTitle(answers[0], for: .normal)
+    private func updateQuestion(withQuestionIndex questionIndex: Int) {
+        currentQuestionNumberLabel.text = "Question: \(questionIndex + 1)/\(questions.count)"
+        let question = questions[questionIndex]
+        questionLabel.text = question.question
+        categoryLabel.text = "Category: \(question.category)"
+        
+        // Shuffle the answers
+        var answers = [question.correctAnswer] + question.incorrectAnswers
+        answers.shuffle()
+        
+        // Assign answers to buttons
+        answerButton0.setTitle(answers[0], for: .normal)
+        answerButton1.setTitle(answers[1], for: .normal)
+        answerButton2.setTitle(answers[2], for: .normal)
+        answerButton3.setTitle(answers[3], for: .normal)
+        
+        // Reset button visibility
+        answerButton1.isHidden = false
+        answerButton2.isHidden = false
+        answerButton3.isHidden = false
     }
-    if answers.count > 1 {
-      answerButton1.setTitle(answers[1], for: .normal)
-      answerButton1.isHidden = false
-    }
-    if answers.count > 2 {
-      answerButton2.setTitle(answers[2], for: .normal)
-      answerButton2.isHidden = false
-    }
-    if answers.count > 3 {
-      answerButton3.setTitle(answers[3], for: .normal)
-      answerButton3.isHidden = false
-    }
-  }
   
   private func updateToNextQuestion(answer: String) {
     if isCorrectAnswer(answer) {
@@ -64,9 +90,13 @@ class TriviaViewController: UIViewController {
     updateQuestion(withQuestionIndex: currQuestionIndex)
   }
   
-  private func isCorrectAnswer(_ answer: String) -> Bool {
-    return answer == questions[currQuestionIndex].correctAnswer
-  }
+    private func isCorrectAnswer(_ answer: String) -> Bool {
+        guard currQuestionIndex < questions.count else {
+            return false
+        }
+        return answer == questions[currQuestionIndex].correctAnswer
+    }
+
   
     private func showFinalScore() {
         let alertController = UIAlertController(title: "Game over!",

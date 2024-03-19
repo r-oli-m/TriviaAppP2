@@ -48,6 +48,6 @@ class TriviaQuestionService {
     }
 }
 
-struct TriviaResponse: Codable {
+struct TriviaResponse: Decodable {
     let results: [TriviaQuestion]
 }
