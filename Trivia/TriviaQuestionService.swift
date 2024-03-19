@@ -16,7 +16,7 @@ class TriviaQuestionService {
     }
     
     func fetchTriviaQuestions(completion: @escaping ([TriviaQuestion]?, Error?) -> Void) {
-        guard let url = URL(string: "https://opentdb.com/api.php?amount=5") else {
+        guard let url = URL(string: "https://opentdb.com/api.php?amount=5&type=multiple") else {
             completion(nil, APIError.invalidURL)
             return
         }
@@ -39,7 +39,7 @@ class TriviaQuestionService {
             
             do {
                 let decoder = JSONDecoder()
-                let response = try decoder.decode(TriviaResponse.self, from: data)
+                let response = try decoder.decode(TriviaAPIResponse.self, from: data)
                 completion(response.results, nil)
             } catch {
                 completion(nil, error)
@@ -48,6 +48,4 @@ class TriviaQuestionService {
     }
 }
 
-struct TriviaResponse: Decodable {
-    let results: [TriviaQuestion]
-}
+

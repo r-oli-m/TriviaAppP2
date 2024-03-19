@@ -28,7 +28,7 @@ class TriviaViewController: UIViewController {
         questionContainerView.layer.cornerRadius = 8.0
         fetchTriviaQuestions()
     }
-
+    
     private func fetchTriviaQuestions() {
         guard let url = URL(string: "https://opentdb.com/api.php?amount=5&type=multiple") else {
             print("Invalid URL")
@@ -47,7 +47,7 @@ class TriviaViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self?.questions = triviaResponse.results
-                    self?.updateQuestion(withQuestionIndex: 0)
+                    self?.updateQuestion(withQuestionIndex: 0) // Call updateQuestion here
                 }
             } catch {
                 print("Error decoding JSON:", error.localizedDescription)
@@ -63,7 +63,7 @@ class TriviaViewController: UIViewController {
         categoryLabel.text = "Category: \(question.category)"
         
         // Shuffle the answers
-        var answers = [question.correctAnswer] + question.incorrectAnswers
+        var answers = [question.correct_answer] + question.incorrect_answers
         answers.shuffle()
         
         // Assign answers to buttons
@@ -94,7 +94,7 @@ class TriviaViewController: UIViewController {
         guard currQuestionIndex < questions.count else {
             return false
         }
-        return answer == questions[currQuestionIndex].correctAnswer
+        return answer == questions[currQuestionIndex].correct_answer
     }
 
   
